@@ -9,12 +9,12 @@ import java.net.URL
 object TheEitherType extends App {
   // URL Blocker
   def getContent(url: URL): Either[String, Source] =
-    if (url.getHost.contains("porn") || url.getHost.contains("sex"))
+    if (url.getHost.contains("adult") || url.getHost.contains("teen"))
       Left("Requested URL is blocked for the good of the people!")
     else
       Right(Source.fromURL(url))
 
-  getContent(new URL("http://hot-sex-tube.com")) match {
+  getContent(new URL("http://liveLife.com")) match {
     case Left(msg) => println(msg)
     case Right(source) => source.getLines.foreach(println)
   }
@@ -27,10 +27,10 @@ object TheEitherType extends App {
     getContent(new URL("http://www.google.com")).right.map(_.getLines)
 
   val content2: Either[String, Iterator[String]] =
-    getContent(new URL("http://hot-sex-tube.com")).right.map(_.getLines) // it is a left object but still applying right don't have side-effects.
+    getContent(new URL("http://liveLife.com")).right.map(_.getLines) // it is a left object but still applying right don't have side-effects.
 
   val content3: Either[Iterator[String], Source] =
-    getContent(new URL("http://hot-sex-tube.com")).left.map(Iterator(_))
+    getContent(new URL("http://liveLife.com")).left.map(Iterator(_))
 
   val content4: Either[Iterator[String], Source] =
     getContent(new URL("http://www.google.com")).left.map(Iterator(_))
